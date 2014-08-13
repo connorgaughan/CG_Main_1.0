@@ -1,7 +1,7 @@
 
 	jQuery(document).ready(function($) {
-
-		// Your JavaScript goes here
-
+		$('.menu-click').on('click', function(){
+			$(this).toggleClass('active');
+		});
 	});
 

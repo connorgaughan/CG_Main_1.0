@@ -23,8 +23,8 @@ module.exports = function(grunt) {
     // Baked into the Watch command to compress all new images
     smushit: {
       mygroup: {
-        src: ['_dev/images/**/*.png','_dev/images/**/*.jpg'],
-        dest: '_assets/images/'
+        src: '_dev/images',
+        dest: '_assets/images'
       }
     },
     // This will compile all SCSS and minify it to a single CSS file
@@ -44,25 +44,16 @@ module.exports = function(grunt) {
     // Watches files and runs appropriate tasks upon changes
     watch: {
       scripts: {
-          files: ['_dev/js/*.js'],
-          tasks: ['concat', 'uglify'],
-          options: {
-            livereload: 1388,
-          }
+        files: ['_dev/js/*.js'],
+        tasks: ['concat', 'uglify'],
       },
       styles: {
         files: ['_dev/scss/*.scss', '_dev/scss/libs/*.scss'],
         tasks: ['compass'],
-        options: {
-          livereload: 1388,
-        }
       },
       imgs: {
-        files: ['_dev/images/**/*.png','_dev/images/**/*.jpg'],
-        task: ['smushit'],
-        options: {
-          livereload: 1388,
-        }
+        files: '_dev/images/*',
+        task: 'smushit',
       },
     },
   });
@@ -74,6 +65,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-smushit');
 
   grunt.registerTask('default', ['concat', 'compass', 'uglify']);
-  grunt.registerTask('min', ['uglify']);
+  grunt.registerTask('img', ['smushit']);
 
 };

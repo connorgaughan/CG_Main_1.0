@@ -53,12 +53,15 @@
 
 	// Thumbnails
 	add_theme_support('post-thumbnails');
-	add_image_size( 'native', 1600, 9999 );
-	add_image_size( 'full', 1200, 9999 );
-	add_image_size( 'large', 1000, 9999 );
+	add_image_size( 'native', 1800, 9999 );
+	add_image_size( 'full', 1600, 9999 );
+	add_image_size( 'large', 1200, 9999 );
 	add_image_size( 'medium', 800, 9999 );
 	add_image_size( 'small', 600, 9999 );
-	add_image_size( 'thumb', 450, 9999 );
+	add_image_size( 'thumb', 350, 9999 );
+
+	// Responsive Image
+	require_once( 'parts/functions/picturefill.php' );
 	
 	// Page Excerpts
 	add_action( 'init', 'my_add_excerpts_to_pages' );
@@ -74,9 +77,15 @@
 	add_action( 'wp_enqueue_scripts', 'starkers_script_enqueuer' );
 	add_filter( 'body_class', array( 'Starkers_Utilities', 'add_slug_to_body_class' ) );
 
+	// Two Column Shortcode
+	function half_sc( $atts, $content = null ) {
+   		return '<div class="half">' . do_shortcode($content) . '</div>';
+	}
+	add_shortcode('half', 'half_sc');
+
 
 	// Custom Post Types
-	// require_once( 'custom-functions/meta_secondary-headline.php' );
+	require_once( 'parts/functions/CMB/functions.php' );
 	
 	
 	// Scripts
@@ -86,6 +95,11 @@
 		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js','', '', true );
 		
 		wp_enqueue_script( 'site', get_template_directory_uri().'/_assets/js/site.min.js', array( 'jquery' ), '', true );
+
+		if(is_home()){
+			wp_enqueue_script( 'scroll', get_template_directory_uri().'/_assets/js/jquery.onepage-scroll.min.js', array( 'jquery' ), '', true );
+			wp_enqueue_style( 'scrolling', get_stylesheet_directory_uri().'/_assets/css/onepage.css', '', '', 'screen' );
+		}
 
 		wp_enqueue_style( 'screen', get_stylesheet_directory_uri().'/_assets/css/style.css', '', '', 'screen' );
 	}	

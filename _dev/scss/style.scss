@@ -1,17 +1,42 @@
 //-------------------------------------------------------------------------------------------------  Import Statements
 @import "compass/typography/vertical_rhythm";
 @import "compass/css3";
+@import "compass/css3/transform";
 @import "compass/utilities";
 @import "libs/reset";
 @import "libs/settings";
 @import "libs/mixins";
 @import "libs/grid";
 @import "libs/typography"; 	
-@import "libs/forms";	
+@import "libs/forms";
 
 //-------------------------------------------------------------------------------------------------  General Styles
 body {width: 100%; @extend .clearfix;}
+
 .container {@extend .clearfix; margin: 0 auto; max-width: 1200px; padding:0 20px;}
+
+.contain{
+	@extend .clearfix;
+	display:block;
+	max-width:770px;
+	width:90%;
+	margin:0 auto;
+}
+
+@media screen and (min-width:40em){
+	.container{ width:90% }
+}
+
+img{ max-width:100%; height:auto; }
+
+.responsive-image img{ display:block; margin:0 auto; }
+.fw_image{ @include leader(6); @include trailer(2); }
+@media screen and (min-width:40em){
+	.fw_image{ @include leader(12); @include trailer(4); }
+
+}
+
+
 
 //-------------------------------------------------------------------------------------------------  Extends
 .is-uppercase {text-transform:uppercase; letter-spacing:1px;}
@@ -20,6 +45,164 @@ body {width: 100%; @extend .clearfix;}
 .clearfix{@include clearfix();}
 
 //-------------------------------------------------------------------------------------------------  Layout
+
+//--------------------------------------------  Header
+header {
+	@include padding-leader(2);
+	@include padding-trailer(2);
+	background:transparent;
+	width:100%;
+	position:fixed;
+	top:0;
+	z-index:1000;
+	h1{ 
+		@include adjust-font-size-to(18px);
+		a{ color:$primary; text-decoration:none; } 
+		width:50%;
+		float:left;
+	}
+}
+
+nav{
+	width:50%;
+	float:right;
+	a{
+		display:block;
+		height:35px;
+		width:35px;
+		float:right;
+		margin:0 10px;
+		border:2px solid $primary;
+		@include border-radius(50%);
+	}
+	.menu-click{
+		text-indent:-999999px;
+		@include transition(all .125s ease-in-out);
+		@include translateZ(0);
+		span{
+			position:relative;
+			display:block;
+			height:2px;
+			width:23px;
+			margin:0 auto;
+			background:$primary;
+			top:14px
+		}
+		span:before, span:after{
+			content:'';
+			position:absolute;
+			display:block;
+			height:2px;
+			width:23px;
+			background:$primary;
+		}
+		span:before{
+			top:-5px;
+		}
+		span:after{
+			bottom:-5px;
+		}
+	}
+	.menu-click.active{
+		span{
+			background:transparent;
+			&:before, &:after{
+				background:$highlight;
+			}
+		}
+		span:before{
+			@include rotate(45deg);
+		}
+		span:after{
+			@include rotate(-45deg);
+		}
+	}
+}
+
+
+//--------------------------------------------  Home Page
+.intro-content{
+	h1{ @include adjust-font-size-to(48px); }
+	h2{ @include adjust-font-size-to(16px); margin: 0; color:$highlight;}
+	p { @include adjust-font-size-to(14px, 3.5); font-family: "freight-sans-pro",sans-serif; }
+	.half{ @include padding-trailer(6); }
+	padding:15% 0 0 0;
+}
+
+.home .project{
+	padding:15% 0 0 0;
+	@extend .is-centered;
+	h2 + p, a{ 
+		font-family: "freight-sans-pro",sans-serif; 
+		color:$white; 
+		@include adjust-font-size-to(20px, 4);
+		@include padding-trailer(4);
+	}
+	a{ @extend .book; &:hover{ text-decoration:none; } }
+	.project-content h2{ color:$white; }
+	.responsive-image{ @include leader(8); }
+}
+
+@media screen and (min-width:48em){
+	.intro-content{
+		h1{ @include adjust-font-size-to(92px); }
+		.columns{ width:100%; max-width:850px; .half{ width:45%; margin:0 5% 0 0; float:left; }}
+	}
+	.home .project{
+		.project-content{ 
+			width:100%; 
+			max-width:600px; 
+			margin:0 auto;
+			h2{ @include adjust-font-size-to(48px); }
+		}
+	}
+}
+
+@media screen and (min-width:72em){
+	.home .project{
+		text-align:left;
+		.project-content{ margin:0; float:left; max-width:500px; }
+		.responsive-image{ 
+			@include leader(0);
+			display:block;
+			position:absolute;
+			top:20%;
+			right:-20%;
+		}
+	}
+}
+
+@media screen and (min-width:80em){
+	.home .project{
+		.project-content{ margin:0; float:left; max-width:600px; }
+		.responsive-image{ 
+			display:block;
+			position:absolute;
+			top:20%;
+			right:-15%;
+		}
+	}
+}
+
+
+
+//--------------------------------------------  Single Projects
+.project-intro:after{
+	display:block;
+	content:"";
+	width:100%;
+	height:700px;
+	position:absolute;
+	bottom:-100px;
+	left:0;
+	z-index:-100;
+	background:#ffffff;
+	@include skew(0deg, -8deg);
+}
+
+@media screen and (min-width:40em){
+	.project-intro:after{ bottom:-200px; }
+}
 
 
 //-------------------------------------------------------------------------------------------------  Print styles
