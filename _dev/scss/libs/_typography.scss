@@ -15,9 +15,6 @@ body{@include adjust-font-size-to($base-font-size, 4); color:$primary; font-fami
 .bold{ font-weight:700; }
 .black{ font-weight:900; }
 
-@media screen and (min-width:40em){
-	article p{ @include adjust-font-size-to(20px, 5); }
-}
 
 //-------------------------------------------------------------------------------------------------  Headlines
 h1 { 
@@ -29,27 +26,30 @@ h1 {
 h2 { 
 	@include adjust-font-size-to(32px, 7);
 	color:$primary;
-	margin: 0 0 rhythm(4, 32px) 0;
+	margin: rhythm(4, 32px) 0 rhythm(2, 32px) 0;
 	@extend .black;
 } 
 
-h2 + p {
+article h2 + p {
 	@include adjust-font-size-to(18px);
 	color:$secondary;
 }
 
 @media screen and (min-width:40em){
-	h2 + p{ @include adjust-font-size-to(22px, 6); }
+	article h2 + p{ @include adjust-font-size-to(22px, 6); }
 }
 
-h3 { 
+h3, .intro-content h2 { 
 	@include adjust-font-size-to(20px);
-	margin: rhythm(5, 20px) 0 rhythm(4, 20px) 0;
+	padding:.75em 0 .25em 0;
 	@extend .bold;
 } 
 
 @media screen and (min-width:40em){
-	h3{ margin: rhythm(10, 20px) 0 rhythm(4, 20px) 0; }
+	h3, .intro-content h2 { padding:2em 0 1em; }
+	h2 { @include adjust-font-size-to(64px);
+		margin: rhythm(8, 64px) 0 rhythm(4, 64px) 0;
+	} 
 }
 
 h4 { 

@@ -8,34 +8,6 @@
 @import "libs/mixins";
 @import "libs/grid";
 @import "libs/typography"; 	
-@import "libs/forms";
-
-//-------------------------------------------------------------------------------------------------  General Styles
-body {width: 100%; @extend .clearfix;}
-
-.container {@extend .clearfix; margin: 0 auto; max-width: 1200px; padding:0 20px;}
-
-.contain{
-	@extend .clearfix;
-	display:block;
-	max-width:770px;
-	width:90%;
-	margin:0 auto;
-}
-
-@media screen and (min-width:40em){
-	.container{ width:90% }
-}
-
-img{ max-width:100%; height:auto; }
-
-.responsive-image img{ display:block; margin:0 auto; }
-.fw_image{ @include leader(6); @include trailer(2); }
-@media screen and (min-width:40em){
-	.fw_image{ @include leader(12); @include trailer(4); }
-
-}
-
 
 
 //-------------------------------------------------------------------------------------------------  Extends
@@ -43,6 +15,63 @@ img{ max-width:100%; height:auto; }
 .is-inline{@include inline-block();}
 .is-centered{text-align:center;}
 .clearfix{@include clearfix();}
+
+
+//-------------------------------------------------------------------------------------------------  General Styles
+body {
+	width: 100%; 
+	@extend .clearfix;
+}
+
+//--------------------------------------------  Containers
+.container {
+	@extend .clearfix; 
+	margin: 0 auto; 
+	max-width: 1200px; 
+	padding:0 20px;
+}
+.contain{
+	@extend .clearfix;
+	display:block;
+	max-width:960px;
+	width:90%;
+	margin:0 auto;
+	@include padding-leader(10);
+}
+
+@media screen and (min-width:40em){
+	.container{ width:90% }
+}
+
+
+//--------------------------------------------  Images
+img{ 
+	max-width:100%; 
+	height:auto; 
+}
+.responsive-image img{ 
+	display:block; 
+	margin:0 auto; 
+}
+.fw_image{ 
+	@include leader(6); 
+	@include trailer(2); 
+}
+
+@media screen and (min-width:40em){
+	.fw_image{ @include leader(12); @include trailer(4); }
+}
+
+
+//--------------------------------------------  Shortcodes
+.half{
+	@include padding-trailer(6);
+}
+
+@media screen and (min-width:48em){
+	.half{ width:45%; margin:0 5% 0 0; float:left; }
+}
+
 
 //-------------------------------------------------------------------------------------------------  Layout
 
@@ -57,9 +86,12 @@ header {
 	z-index:1000;
 	h1{ 
 		@include adjust-font-size-to(18px);
-		a{ color:$primary; text-decoration:none; } 
 		width:50%;
 		float:left;
+		a{ 
+			color:$primary; 
+			text-decoration:none; 
+		} 
 	}
 }
 
@@ -86,15 +118,18 @@ nav{
 			width:23px;
 			margin:0 auto;
 			background:$primary;
-			top:14px
+			top:14px;
+			@include transition(all .125s ease-in-out);
 		}
-		span:before, span:after{
+		span:before, 
+		span:after{
 			content:'';
 			position:absolute;
 			display:block;
 			height:2px;
 			width:23px;
 			background:$primary;
+			@include transition(all .125s ease-in-out);
 		}
 		span:before{
 			top:-5px;
@@ -106,15 +141,20 @@ nav{
 	.menu-click.active{
 		span{
 			background:transparent;
-			&:before, &:after{
+			&:before, 
+			&:after{
 				background:$highlight;
 			}
 		}
 		span:before{
 			@include rotate(45deg);
+			top:0px;
+			height:4px;
 		}
 		span:after{
 			@include rotate(-45deg);
+			top:0px;
+			height:4px;
 		}
 	}
 }
@@ -122,11 +162,13 @@ nav{
 
 //--------------------------------------------  Home Page
 .intro-content{
-	h1{ @include adjust-font-size-to(48px); }
-	h2{ @include adjust-font-size-to(16px); margin: 0; color:$highlight;}
-	p { @include adjust-font-size-to(14px, 3.5); font-family: "freight-sans-pro",sans-serif; }
-	.half{ @include padding-trailer(6); }
 	padding:15% 0 0 0;
+	h1{ 
+		@include adjust-font-size-to(48px); 
+	}
+	h2{ 
+		color:$highlight;
+	}
 }
 
 .home .project{
@@ -138,22 +180,38 @@ nav{
 		@include adjust-font-size-to(20px, 4);
 		@include padding-trailer(4);
 	}
-	a{ @extend .book; &:hover{ text-decoration:none; } }
-	.project-content h2{ color:$white; }
-	.responsive-image{ @include leader(8); }
+	a{ 
+		@extend .book; 
+		&:hover{ 
+			text-decoration:none; 
+		} 
+	}
+	.project-content h2{ 
+		color:$white; 
+	}
+	.responsive-image{ 
+		@include leader(8); 
+	}
 }
 
 @media screen and (min-width:48em){
 	.intro-content{
-		h1{ @include adjust-font-size-to(92px); }
-		.columns{ width:100%; max-width:850px; .half{ width:45%; margin:0 5% 0 0; float:left; }}
+		h1{ 
+			@include adjust-font-size-to(92px); 
+		}
+		.columns{ 
+			width:100%;
+			max-width:850px; 
+		}
 	}
 	.home .project{
 		.project-content{ 
 			width:100%; 
 			max-width:600px; 
 			margin:0 auto;
-			h2{ @include adjust-font-size-to(48px); }
+			h2{ 
+				@include adjust-font-size-to(48px); 
+			}
 		}
 	}
 }
@@ -161,7 +219,13 @@ nav{
 @media screen and (min-width:72em){
 	.home .project{
 		text-align:left;
-		.project-content{ margin:0; float:left; max-width:500px; }
+
+		.project-content{ 
+			margin:0; 
+			float:left; 
+			max-width:500px; 
+		}
+
 		.responsive-image{ 
 			@include leader(0);
 			display:block;
@@ -174,7 +238,12 @@ nav{
 
 @media screen and (min-width:80em){
 	.home .project{
-		.project-content{ margin:0; float:left; max-width:600px; }
+		.project-content{ 
+			margin:0; 
+			float:left; 
+			max-width:600px; 
+		}
+
 		.responsive-image{ 
 			display:block;
 			position:absolute;
@@ -200,8 +269,23 @@ nav{
 	@include skew(0deg, -8deg);
 }
 
+article .contain h2+p{
+	font-family: "freight-text-pro",sans-serif;
+	font-weight:500;
+	@include adjust-font-size-to(20px, 5);
+}
+
+
+
 @media screen and (min-width:40em){
-	.project-intro:after{ bottom:-200px; }
+	.project-intro:after{ 
+		bottom:-200px; 
+	}
+
+	article .contain h2+p{
+		font-weight:300;
+		@include adjust-font-size-to(26px, 6);
+	}
 }
 
 

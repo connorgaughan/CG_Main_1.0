@@ -62,6 +62,9 @@
 
 	// Responsive Image
 	require_once( 'parts/functions/picturefill.php' );
+
+	// Column Shortcodes
+	require_once( 'parts/functions/cols.php' );
 	
 	// Page Excerpts
 	add_action( 'init', 'my_add_excerpts_to_pages' );
@@ -77,11 +80,17 @@
 	add_action( 'wp_enqueue_scripts', 'starkers_script_enqueuer' );
 	add_filter( 'body_class', array( 'Starkers_Utilities', 'add_slug_to_body_class' ) );
 
-	// Two Column Shortcode
-	function half_sc( $atts, $content = null ) {
-   		return '<div class="half">' . do_shortcode($content) . '</div>';
+
+	// Add classes to next and previous post links
+	add_filter('next_posts_link_attributes', 'next_link_attributes');
+	function next_link_attributes() {
+    	return 'class="nextProject"';
 	}
-	add_shortcode('half', 'half_sc');
+
+	add_filter('previous_posts_link_attributes', 'prev_link_attributes');
+	function prev_link_attributes() {
+    	return 'class="prevProject"';
+	}
 
 
 	// Custom Post Types

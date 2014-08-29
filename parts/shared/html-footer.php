@@ -21,7 +21,7 @@
 				}';
 
 			}elseif(is_single()){
-				echo '.'.$selector.' h3, .'.$selector.' h4{color:'.$primary.'}';
+				echo '.'.$selector.' h3, .'.$selector.' h4, .'.$selector.' .contain a{color:'.$primary.'}';
 				echo '.'.$selector.' .fw_image{background:'.$secondary.'}';
 				echo '.'.$selector.' .project-intro:before{
 					display:block;
