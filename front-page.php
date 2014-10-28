@@ -26,7 +26,7 @@
 			</div>
 			<?php
 				$url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
-				echo do_shortcode( '[rimg src="' . $url . '"]' );
+				echo do_shortcode( '[featured src="' . $url . '"]' );
 			?>
 		</div>
 	</section>

@@ -81,18 +81,6 @@
 	add_filter( 'body_class', array( 'Starkers_Utilities', 'add_slug_to_body_class' ) );
 
 
-	// Add classes to next and previous post links
-	add_filter('next_posts_link_attributes', 'next_link_attributes');
-	function next_link_attributes() {
-    	return 'class="nextProject"';
-	}
-
-	add_filter('previous_posts_link_attributes', 'prev_link_attributes');
-	function prev_link_attributes() {
-    	return 'class="prevProject"';
-	}
-
-
 	// Custom Post Types
 	require_once( 'parts/functions/CMB/functions.php' );
 	
@@ -105,10 +93,4 @@
 		
 		wp_enqueue_script( 'site', get_template_directory_uri().'/_assets/js/site.min.js', array( 'jquery' ), '', true );
 
-		if(is_home()){
-			wp_enqueue_script( 'scroll', get_template_directory_uri().'/_assets/js/jquery.onepage-scroll.min.js', array( 'jquery' ), '', true );
-			wp_enqueue_style( 'scrolling', get_stylesheet_directory_uri().'/_assets/css/onepage.css', '', '', 'screen' );
-		}
-
-		wp_enqueue_style( 'screen', get_stylesheet_directory_uri().'/_assets/css/style.css', '', '', 'screen' );
 	}	

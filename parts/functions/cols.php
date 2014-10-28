@@ -10,4 +10,9 @@ function half_sc( $atts, $content = null ) {
 }
 add_shortcode('half', 'half_sc');
 
+function halfLast_sc( $atts, $content = null ) {
+   	return '<div class="half">' . do_shortcode($content) . '</div></div>';
+}
+add_shortcode('halfLast', 'halfLast_sc');
+
 ?>

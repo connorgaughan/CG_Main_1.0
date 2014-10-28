@@ -1,4 +1,6 @@
-//-------------------------------------------------------------------------------------------------  Import Statements
+/* ========================================================
+   # Import Statements
+======================================================== */
 @import "compass/typography/vertical_rhythm";
 @import "compass/css3";
 @import "compass/css3/transform";
@@ -10,33 +12,47 @@
 @import "libs/typography"; 	
 
 
-//-------------------------------------------------------------------------------------------------  Extends
-.is-uppercase {text-transform:uppercase; letter-spacing:1px;}
-.is-inline{@include inline-block();}
-.is-centered{text-align:center;}
-.clearfix{@include clearfix();}
 
 
-//-------------------------------------------------------------------------------------------------  General Styles
-body {
-	width: 100%; 
-	@extend .clearfix;
-}
+
+/* ========================================================
+   # Extends
+======================================================== */
+.is-uppercase {		text-transform:uppercase; letter-spacing:1px; }
+
+.is-inline{			@include inline-block(); }
+
+.is-centered{		text-align:center; }
+
+.clearfix{			@include clearfix(); }
+
+
+
+
+
+/* ========================================================
+   # General Styles
+======================================================== */
+body { width: 100%;  @extend .clearfix; }
+
+
 
 //--------------------------------------------  Containers
 .container {
 	@extend .clearfix; 
-	margin: 0 auto; 
-	max-width: 1200px; 
-	padding:0 20px;
+	margin: 	0 auto; 
+	padding:	0 20px;
+	max-width: 	1200px; 
+	position:	relative;
+	
 }
 .contain{
 	@extend .clearfix;
-	display:block;
-	max-width:960px;
-	width:90%;
-	margin:0 auto;
 	@include padding-leader(10);
+	display:	block;
+	max-width:	960px;
+	width:		90%;
+	margin:		0 auto;
 }
 
 @media screen and (min-width:40em){
@@ -44,46 +60,55 @@ body {
 }
 
 
+
 //--------------------------------------------  Images
 img{ 
-	max-width:100%; 
-	height:auto; 
+	max-width:	100%; 
+	height:		auto; 
 }
 .responsive-image img{ 
-	display:block; 
-	margin:0 auto; 
+	display:	block; 
+	margin:		0 auto; 
+}
+.mw_image.responsive-image{
+	display:	block;
+	padding:	25px;
+
+	img{ @include box-shadow(0 0 20px rgba(0,0,0,.75)); }
 }
 .fw_image{ 
-	@include leader(6); 
-	@include trailer(2); 
+	@include leader(4); 
+	@include trailer(4); 
 }
 
-@media screen and (min-width:40em){
-	.fw_image{ @include leader(12); @include trailer(4); }
-}
 
 
 //--------------------------------------------  Shortcodes
-.half{
-	@include padding-trailer(6);
-}
+.half{ @include padding-trailer(6); }
 
 @media screen and (min-width:48em){
 	.half{ width:45%; margin:0 5% 0 0; float:left; }
 }
 
 
-//-------------------------------------------------------------------------------------------------  Layout
+
+
+
+/* ========================================================
+   # General Styles
+======================================================== */
+
+
 
 //--------------------------------------------  Header
 header {
 	@include padding-leader(2);
 	@include padding-trailer(2);
 	background:transparent;
-	width:100%;
-	position:fixed;
-	top:0;
-	z-index:1000;
+	width:		100%;
+	position:	fixed;
+	top:		0;
+	z-index:	1000;
 	h1{ 
 		@include adjust-font-size-to(18px);
 		width:50%;
@@ -95,16 +120,16 @@ header {
 	}
 }
 
-nav{
+nav.post-nav{
 	width:50%;
 	float:right;
 	a{
 		display:block;
-		height:35px;
-		width:35px;
+		height:39px;
+		width:39px;
 		float:right;
 		margin:0 10px;
-		border:2px solid $primary;
+		border:4px solid $primary;
 		@include border-radius(50%);
 	}
 	.menu-click{
@@ -143,7 +168,7 @@ nav{
 			background:transparent;
 			&:before, 
 			&:after{
-				background:$highlight;
+				background:$white;
 			}
 		}
 		span:before{
@@ -157,12 +182,87 @@ nav{
 			height:4px;
 		}
 	}
+	a[rel="prev"]{
+		text-indent:-99999px;
+		span{
+			position:relative;
+			display:block;
+			height:2px;
+			width:10px;
+			margin:0 auto;
+			background:$primary;
+			top:10px;
+			right:-2px;
+			@include rotate(45deg);
+			&:after{
+				content:"";
+				display:block;
+				position:absolute;
+				height:2px;
+				width:10px;
+				background:$primary;
+				top: 5px;
+				right: -5px;
+				@include rotate(-90deg);
+			}
+		}
+	}
+	a[rel="next"]{
+		text-indent:-99999px;
+		span{
+			position:relative;
+			display:block;
+			height:2px;
+			width:10px;
+			margin:0 auto;
+			background:$primary;
+			top:10px;
+			left:-2px;
+			@include rotate(-45deg);
+			&:after{
+				content:"";
+				display:block;
+				position:absolute;
+				height:2px;
+				width:10px;
+				background:$primary;
+				top: 5px;
+				left: -5px;
+				@include rotate(90deg);
+			}
+		}
+	}
 }
 
+//--------------------------------------------  Navigation
+.menuContainer{
+	display:none;
+}
+.menuContainer.active{
+	display:block;
+	height:100%;
+	width:100%;
+	position:fixed;
+	z-index:500;
+	background:$highlight-o;
+	padding:6em 0;
+	.menu{
+		list-style-type:none;
+		width:90%;
+		margin:0 auto;
+		max-width:1200px;
+		padding:20px;
+	}
+	a{ 
+		color:$white;
+		text-decoration:none;
+		@include adjust-font-size-to(32px);
+	}
+}
 
 //--------------------------------------------  Home Page
 .intro-content{
-	padding:15% 0 0 0;
+	padding:15% 0;
 	h1{ 
 		@include adjust-font-size-to(48px); 
 	}
@@ -171,8 +271,12 @@ nav{
 	}
 }
 
+.home .intro{
+	padding:0 0 15% 0;
+}
+
 .home .project{
-	padding:15% 0 0 0;
+	padding:10% 0;
 	@extend .is-centered;
 	h2 + p, a{ 
 		font-family: "freight-sans-pro",sans-serif; 
@@ -219,9 +323,11 @@ nav{
 @media screen and (min-width:72em){
 	.home .project{
 		text-align:left;
+		padding:0;
 
 		.project-content{ 
 			margin:0; 
+			padding:15% 0 20% 0;
 			float:left; 
 			max-width:500px; 
 		}
@@ -230,25 +336,29 @@ nav{
 			@include leader(0);
 			display:block;
 			position:absolute;
-			top:20%;
-			right:-20%;
+			top:10%;
+			right:-35%;
 		}
 	}
 }
 
 @media screen and (min-width:80em){
 	.home .project{
+		overflow:hidden;
 		.project-content{ 
 			margin:0; 
+			padding:25% 0 30% 0;
 			float:left; 
 			max-width:600px; 
+			height:100vh;
+
 		}
 
 		.responsive-image{ 
 			display:block;
 			position:absolute;
 			top:20%;
-			right:-15%;
+			right:-25%;
 		}
 	}
 }
@@ -256,18 +366,6 @@ nav{
 
 
 //--------------------------------------------  Single Projects
-.project-intro:after{
-	display:block;
-	content:"";
-	width:100%;
-	height:700px;
-	position:absolute;
-	bottom:-100px;
-	left:0;
-	z-index:-100;
-	background:#ffffff;
-	@include skew(0deg, -8deg);
-}
 
 article .contain h2+p{
 	font-family: "freight-text-pro",sans-serif;

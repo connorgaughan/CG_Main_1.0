@@ -6,11 +6,12 @@
 		<div class="project-intro">
 			<?php
 				$url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
-				echo do_shortcode( '[rimg src="' . $url . '"]' );
+				echo do_shortcode( '[featured src="' . $url . '"]' );
 			?>
+			<div class="project-bg"></div>
 		</div>
-			<h2><?php the_title(); ?></h2>
-			<?php the_content(); ?>		
+		<h2><?php the_title(); ?></h2>
+		<?php the_content(); ?>		
 	</div>
 </article>
 <?php endwhile; ?>
