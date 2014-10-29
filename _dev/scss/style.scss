@@ -73,12 +73,6 @@ img{
 .mw_image.responsive-image{
 	display:	block;
 	padding:	25px;
-
-	img{ @include box-shadow(0 0 20px rgba(0,0,0,.75)); }
-}
-.fw_image{ 
-	@include leader(4); 
-	@include trailer(4); 
 }
 
 
@@ -110,13 +104,7 @@ header {
 	top:		0;
 	z-index:	1000;
 	h1{ 
-		@include adjust-font-size-to(18px);
-		width:50%;
-		float:left;
-		a{ 
-			color:$primary; 
-			text-decoration:none; 
-		} 
+		display:none;
 	}
 }
 
@@ -134,8 +122,9 @@ nav.post-nav{
 	}
 	.menu-click{
 		text-indent:-999999px;
-		@include transition(all .125s ease-in-out);
+		@include transition(all 1.5s ease-in-out);
 		@include translateZ(0);
+		@include rotate(0deg);
 		span{
 			position:relative;
 			display:block;
@@ -144,7 +133,7 @@ nav.post-nav{
 			margin:0 auto;
 			background:$primary;
 			top:14px;
-			@include transition(all .125s ease-in-out);
+			@include transition(all .5s ease-in-out);
 		}
 		span:before, 
 		span:after{
@@ -154,7 +143,7 @@ nav.post-nav{
 			height:2px;
 			width:23px;
 			background:$primary;
-			@include transition(all .125s ease-in-out);
+			@include transition(all .5s ease-in-out);
 		}
 		span:before{
 			top:-5px;
@@ -164,6 +153,7 @@ nav.post-nav{
 		}
 	}
 	.menu-click.active{
+		@include rotate(720deg);
 		span{
 			background:transparent;
 			&:before, 
@@ -253,22 +243,28 @@ nav.post-nav{
 		max-width:1200px;
 		padding:20px;
 	}
+	li.disabled {
+		margin-top:2em;
+		a{
+			color:$primary;
+			@extend .bold;
+			@include adjust-font-size-to(16px);
+			@extend .is-uppercase;
+		}
+	}
 	a{ 
+		font-family: "aktiv-grotesk-std",sans-serif;
+		font-weight:300;
+		@include adjust-font-size-to(32px, 6);
 		color:$white;
 		text-decoration:none;
-		@include adjust-font-size-to(32px);
 	}
 }
 
 //--------------------------------------------  Home Page
 .intro-content{
-	padding:15% 0;
-	h1{ 
-		@include adjust-font-size-to(48px); 
-	}
-	h2{ 
-		color:$highlight;
-	}
+	padding:15% 0 0 0;
+	@extend .clearfix;
 }
 
 .home .intro{
@@ -276,116 +272,90 @@ nav.post-nav{
 }
 
 .home .project{
+	border-top:1px solid #ebebeb;
 	padding:10% 0;
-	@extend .is-centered;
-	h2 + p, a{ 
-		font-family: "freight-sans-pro",sans-serif; 
-		color:$white; 
-		@include adjust-font-size-to(20px, 4);
-		@include padding-trailer(4);
-	}
-	a{ 
-		@extend .book; 
-		&:hover{ 
-			text-decoration:none; 
-		} 
-	}
-	.project-content h2{ 
-		color:$white; 
-	}
+	width:100%;
+	background: #f9f9f9;
 	.responsive-image{ 
-		@include leader(8); 
+		@include trailer(8); 
 	}
 }
 
-@media screen and (min-width:48em){
+@media screen and (min-width:54em){
 	.intro-content{
-		h1{ 
-			@include adjust-font-size-to(92px); 
-		}
+		@include column(12);
 		.columns{ 
+			@extend .clearfix;
 			width:100%;
-			max-width:850px; 
 		}
 	}
 	.home .project{
 		.project-content{ 
-			width:100%; 
-			max-width:600px; 
-			margin:0 auto;
-			h2{ 
-				@include adjust-font-size-to(48px); 
+			@include column(3);
+		}
+		.responsive-image{ 
+			@include column(9); 
+		}
+		&:nth-of-type(odd){
+			background: $white;
+			.project-content,
+			.responsive-image{
+				float:right;
 			}
 		}
 	}
 }
 
-@media screen and (min-width:72em){
-	.home .project{
-		text-align:left;
-		padding:0;
-
-		.project-content{ 
-			margin:0; 
-			padding:15% 0 20% 0;
-			float:left; 
-			max-width:500px; 
-		}
-
-		.responsive-image{ 
-			@include leader(0);
-			display:block;
-			position:absolute;
-			top:10%;
-			right:-35%;
-		}
-	}
-}
 
 @media screen and (min-width:80em){
-	.home .project{
-		overflow:hidden;
-		.project-content{ 
-			margin:0; 
-			padding:25% 0 30% 0;
-			float:left; 
-			max-width:600px; 
-			height:100vh;
-
-		}
-
-		.responsive-image{ 
-			display:block;
-			position:absolute;
-			top:20%;
-			right:-25%;
-		}
+	.intro-content .columns{
+		@include adjust-font-size-to(20px, 5);
 	}
 }
-
 
 
 //--------------------------------------------  Single Projects
 
-article .contain h2+p{
-	font-family: "freight-text-pro",sans-serif;
-	font-weight:500;
-	@include adjust-font-size-to(20px, 5);
+.photos{
+	background: #f0f0f0;
 }
 
+.photos,
+.fw_images{
+	padding:2.5em 0;
+}
 
+.project-intro{
+	margin:0 0 1em 0;
+}
+
+.caption{
+	color:$tertiary;
+	padding:0 0 1em 0;
+	@include adjust-font-size-to(14px);
+	strong{
+		font-weight:800;
+	}
+}
 
 @media screen and (min-width:40em){
 	.project-intro:after{ 
 		bottom:-200px; 
 	}
-
-	article .contain h2+p{
-		font-weight:300;
-		@include adjust-font-size-to(26px, 6);
-	}
 }
 
+
+
+
+
+//--------------------------------------------  Footer
+footer{
+	background:$highlight-o;
+	padding:15px 0;
+	color:$white;
+	font-family: "aktiv-grotesk-std",sans-serif;
+	font-weight:300;
+}
 
 //-------------------------------------------------------------------------------------------------  Print styles
 @media print {body {font-size: percentage(10 / 16);@include adjust-leading-to(2);}}

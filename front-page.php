@@ -3,6 +3,7 @@
 	<section class="intro">
 		<div class="container">
 			<div class="intro-content">
+				<h2 class="preName">Web Designer &amp; Front-end Developer</h2>
 				<h1><?php bloginfo( 'name' ); ?></h1>
 				<div class="columns">
 					<?php 
@@ -19,15 +20,15 @@
 <?php while ( have_posts() ) : the_post(); ?>
 	<section class="<?php echo $post->post_name;?> project">
 		<div class="container">
-			<div class="project-content">
-				<h2><?php the_title(); ?></h2>
-				<?php the_excerpt(); ?>
-				<p><a href="<?php esc_url( the_permalink() ); ?>" title="Permalink to <?php the_title(); ?>" rel="bookmark">View Project</a></p>
-			</div>
 			<?php
 				$url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
 				echo do_shortcode( '[featured src="' . $url . '"]' );
 			?>
+			<div class="project-content">
+				<h3><?php the_title(); ?></h3>
+				<?php the_excerpt(); ?>
+				<p><a class="button" href="<?php esc_url( the_permalink() ); ?>" title="Permalink to <?php the_title(); ?>" rel="bookmark">View Project</a></p>
+			</div>
 		</div>
 	</section>
 <?php endwhile; wp_reset_postdata(); ?>

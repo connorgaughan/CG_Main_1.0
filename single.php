@@ -10,7 +10,7 @@
 			?>
 			<div class="project-bg"></div>
 		</div>
-		<h2><?php the_title(); ?></h2>
+		<h1><?php the_title(); ?></h1>
 		<?php the_content(); ?>		
 	</div>
 </article>

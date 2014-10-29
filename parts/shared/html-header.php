@@ -14,5 +14,82 @@
 		<script src="//use.typekit.net/fzt1sdn.js"></script>
 		<script>try{Typekit.load();}catch(e){}</script>
 		<?php wp_head(); ?>
+		<?php 
+		$query = new WP_Query( array('posts_type'=> 'post') );
+		if ( $query->have_posts() ) : ?>
+
+			<style type="text/css">
+
+			<?php while ( $query->have_posts() ) : $query->the_post();
+
+			$primary = get_post_meta($post->ID, '_cmb_primary_color', true);
+			$secondary = get_post_meta($post->ID, '_cmb_secondary_color', true);
+			$selector = $post->post_name;
+			
+			if(is_home()){
+
+				echo '	
+				.'.$selector.' a.button{
+					border: 2px solid #ffffff;
+				 	background: '.$primary.';
+				 	-webkit-transition: 	all .25s ease-in-out;
+					-moz-transition: 		all .25s ease-in-out;
+					-ms-transition: 		all .25s ease-in-out;
+					-o-transition: 			all .25s ease-in-out;
+					transition: 			all .25s ease-in-out;
+				}';
+
+				echo '	
+				.'.$selector.' a.button:hover{
+				 	border: 2px solid '.$primary.';
+				 	background: #ffffff;
+				 	color: '.$secondary.';
+				}';
+
+			} elseif(is_single()){
+							
+				echo '
+				.'.$selector.' h3, 
+				.'.$selector.' h4, 
+				.'.$selector.' .contain a,
+				.'.$selector.' .folio{
+					color:'.$primary.'
+				}';
+							
+				echo '
+				@media screen and (min-width: 40em){
+					.'.$selector.' .project-bg{
+						display:block;
+						content:"";
+						width:100%;
+						height:600px;
+						position:absolute;
+						top:-300px;
+						left:0;
+						z-index:-1000;
+						-webkit-transform:  skew(0deg, -8deg);
+						-moz-transform: 	skew(0deg, -8deg);
+						-ms-transform: 		skew(0deg, -8deg);
+						-o-transform: 		skew(0deg, -8deg);
+						transform: 			skew(0deg, -8deg);
+						background: '.$primary.';
+						background: -moz-linear-gradient(top,  '.$primary.' 0%, '.$secondary.' 100%);
+						background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,'.$primary.'), color-stop(100%,'.$secondary.'));
+						background: -webkit-linear-gradient(top,  '.$primary.' 0%,'.$secondary.' 100%);
+						background: -o-linear-gradient(top,  '.$primary.' 0%,'.$secondary.' 100%);
+						background: -ms-linear-gradient(top,  '.$primary.' 0%,'.$secondary.' 100%);
+						background: linear-gradient(to bottom,  '.$primary.' 0%,'.$secondary.' 100%);
+						filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="'.$primary.'", endColorstr="'.$secondary.'",GradientType=0 );";
+					} 
+				}';
+			} ?>
+			<?php endwhile; ?>
+			
+			</style>
+			
+			<?php wp_reset_postdata(); ?>
+			
+		<?php endif; ?>
+
 	</head>
 	<body <?php body_class(); ?>>

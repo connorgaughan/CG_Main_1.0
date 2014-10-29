@@ -15,4 +15,14 @@ function halfLast_sc( $atts, $content = null ) {
 }
 add_shortcode('halfLast', 'halfLast_sc');
 
+function photos_sc( $atts, $content = null ) {
+   	return '<div class="photos">' . do_shortcode($content) . '</div>';
+}
+add_shortcode('photos', 'photos_sc');
+
+function fw_sc( $atts, $content = null ) {
+   	return '</div><div class="fw_images">' . do_shortcode($content) . '</div><div class="photos">';
+}
+add_shortcode('fw', 'fw_sc');
+
 ?>
